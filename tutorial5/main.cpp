@@ -1,0 +1,87 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+ 
+ const double PI = 3.14159265358979323846;
+ 
+ class circle
+ {
+     public:
+        void print() const{
+            std::cout << "x Coordinates: " << xCoordinate << std::endl;
+            std::cout << "y Coordinates: " << yCoordinate << std::endl;
+            std::cout << "radius: " << radius << std::endl;
+            std::cout << std::endl;
+        };
+        void setRadius(double r){
+            radius = r;
+        };
+        void setCenter(double x, double y){
+            xCoordinate = x;
+            yCoordinate = y;
+        };
+        void getCenter(double&, double&){
+        };
+        
+        double getRadius(){
+            return radius;
+        };
+        double area(){
+            return (PI * radius * radius);
+        };
+        
+        circle(){
+            xCoordinate = 0;
+            yCoordinate = 0;
+            radius = 0;
+        };
+        circle(double x, double y, double r){
+            xCoordinate = x;
+            yCoordinate = y;
+            radius = r;
+        };
+     
+     protected:
+        double xCoordinate;
+        double yCoordinate;
+        double radius;
+ };
+ 
+ class cylinder: public circle
+ {
+     public:
+        void print() const{
+            circle::print();
+            std::cout << "height: " << height << std::endl;
+            std::cout << std::endl;
+        };
+        void setHeight(double);
+        
+        double getHeight();
+        double volume();
+        double area();
+        
+        cylinder(){
+            height = 0;
+        };
+        cylinder(double x, double y, double r, double h)
+        :circle(x, y, r),height(h)
+        {};
+        
+    private:
+        double height;
+ };
+ 
+int main() {
+    // Write C++ code here
+    circle myCircle(2, 3, 4);
+    myCircle.print();
+    
+    myCircle.setRadius(5);
+    myCircle.print();
+    std::cout << myCircle.area() << std::endl;
+    
+    cylinder myCylinder(1, 2, 3, 4);
+    myCylinder.print();
+
+    return 0;
+}
