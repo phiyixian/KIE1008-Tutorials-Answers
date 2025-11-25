@@ -1,0 +1,62 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+
+class small {
+    public:
+        virtual void print() const;
+        int add() {
+            return x + y;
+        }
+        small () {}
+        small(int a, int b) { x = a; y = b; }
+    private:
+        int x = 0;
+        int y = 0;
+};
+
+void small::print() const {
+    std::cout << "small: -- " << std::endl
+        << "x: " << x << ", y = " << y << std::endl;
+}
+
+class notSmall: public small
+{
+    public:
+        void print() const;
+        int add();
+        notSmall() {}
+        notSmall(int a, int b, int c)
+            : small(a, b) { z = c; }
+    
+    private:
+        int z;
+};
+
+void notSmall::print() const {
+    small::print();
+    std::cout << "noSmall --- z: " << z << std::endl;
+}
+
+int notSmall::add(){
+    return z + small::add();
+}
+
+int main() {
+    small *ptrSmall;
+    small objectSmall(2, 3);
+    
+    notSmall objectBig(3, 5, 9);
+    
+    ptrSmall = &objectSmall;
+    std::cout << ptrSmall->add() << std::endl;
+    ptrSmall->print();
+    std::cout << "*-*-*-*-*-*-*-*-*-*-*-*" << std::endl << std::endl;
+    
+    ptrSmall = &objectBig;
+    std::cout << ptrSmall->add() << std::endl;
+    ptrSmall->print();
+    return 0;
+
+
+    return 0;
+}
