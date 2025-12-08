@@ -110,7 +110,7 @@ class Current: public Account, public Person{
 
 int main() {
     // Write C++ code here
-    Saving mySaving("123-234-345", 1000, "Phi", "050614070122", 0.15);
+    Saving mySaving("123-234-345", 1000, "Phi", "01234567890", 0.15);
     mySaving.displayInfo();
     for(int i = 0; i < 12; i ++){
         mySaving.calculateBalance();
@@ -127,3 +127,4 @@ int main() {
     }
     return 0;
 }
+
