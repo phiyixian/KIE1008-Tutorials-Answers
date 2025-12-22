@@ -1,0 +1,120 @@
+#include <iostream>
+using namespace std;
+
+struct nodeType{
+    int info;
+    nodeType* link;
+};
+
+int main() {
+    nodeType *list, *first, *current, *last, *temp, *trail, *p, *q;
+    nodeType *p_current, *current_temp, *temp_last;
+
+    // Allocate nodes
+    list = new nodeType;
+    p = new nodeType;
+    p_current = new nodeType;
+    current = new nodeType;
+    current_temp = new nodeType;
+    temp = new nodeType;
+    temp_last = new nodeType;
+    last = new nodeType;
+    
+    list->info = 47;
+    first = list;
+    list->link = p;
+    
+    p->info = 12;
+    p->link = p_current;
+    
+    p_current->info = 92;
+    p_current->link = current;
+    
+    current->info = 65;
+    current->link = current_temp;
+    
+    current_temp->info = 80;
+    current_temp->link = temp;
+    
+    temp->info = 46;
+    temp->link = temp_last;
+    
+    temp_last->info = 5;
+    temp_last->link = last;
+    
+    last->info = 78;
+    last->link = NULL;
+    
+    // (b)
+    // (i) set info of third node to 24
+    p_current->info = 24;
+    cout << p_current->info << endl;
+    cout << endl;
+    
+    // (ii) make q point to node with info 80
+    nodeType* Q;
+    Q = new nodeType;
+    Q = list;
+    while(Q->info != 80){
+        Q = Q->link;
+    }
+    cout << Q->info << endl;
+    cout << endl;
+    
+    // (iii) advance first to point to the next node 
+    cout << first->info << endl;
+    first = first->link;
+    cout << first->info << endl;
+    cout << endl;
+    
+    // (iv) make trail point to the node before current
+    trail = first;
+    while(trail->link != current){
+        trail = trail->link;
+    }
+    cout << trail->info << endl;
+    cout << endl;
+    
+    //(vi) set the value of node before last to 54
+    trail = first;
+    while(trail->link != last){
+        trail = trail->link;
+    }
+    trail->info = 54;
+    cout << trail->info << endl;
+    cout << endl;
+    
+    // (a)
+    //(i)
+    q = p->link;
+    cout << q->info << " " << current->info;
+    
+    //(ii)
+    cout << current->link->info;
+    
+    //(v)
+    q = current->link;
+    cout << q->link->link->info;
+    
+    //(iii)
+    trail = current->link->link;
+    trail->link = nullptr;
+    cout << trail->info;
+    
+    //(iv)
+    if (last->link != nullptr)
+        cout << last->link->info;
+    
+    //(vi)
+    while (current->link != nullptr){
+        current = current->link;
+    }
+    cout << current->info << " ";
+    
+    //(vii)
+    while (p != nullptr){
+        cout << p->info << " ";
+        p = p->link;
+    }
+    cout << endl;
+}

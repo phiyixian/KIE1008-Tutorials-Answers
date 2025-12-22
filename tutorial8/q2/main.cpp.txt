@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+struct nodeType{
+    int info;
+    nodeType* link;
+};
+
+int main() {
+    nodeType *current, *trail, *list;
+    
+    current = new nodeType;
+    current->info = 72;
+    current->link = nullptr;
+    trail = current;
+    
+    current = new nodeType;
+    current->info = 46;
+    current->link = trail;
+    list = current;
+    
+    current = new nodeType;
+    current->info = 52;
+    list->link = current;
+    current->link = trail;
+    trail = current;
+    
+    current = new nodeType;
+    current->info = 91;
+    current->link = trail->link;
+    trail->link = current;
+    current = list;
+    
+    while (current!= nullptr)
+    {
+        cout << current->info << " ";
+        current = current->link;
+    }
+    cout << endl;
+}
