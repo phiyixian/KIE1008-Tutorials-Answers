@@ -1,0 +1,115 @@
+#include <iostream>
+using namespace std;
+
+struct Node{
+    int data;
+    Node *left;
+    Node *right;
+    
+    Node(int val){
+        data = val;
+        left = right = nullptr;
+    }
+};
+
+Node* removeNode(Node* targetNode, int value){
+    if(targetNode == nullptr){
+        cout << "Error not found." << endl;
+    } 
+    
+    if(value < targetNode->data){
+        targetNode -> left = removeNode(targetNode->left, value);
+    } else if(value > targetNode->data){
+        targetNode -> right = removeNode(targetNode->right, value);
+    } else {
+        if(targetNode -> left == nullptr && targetNode->right == nullptr){
+            delete targetNode;
+            return nullptr;
+        } else if(targetNode -> left == nullptr){
+            Node *temp = targetNode -> right;
+            delete targetNode;
+            return temp;
+        } else if(targetNode -> right == nullptr){
+            Node *temp = targetNode -> left;
+            delete targetNode;
+            return temp;
+        } else {
+            Node *temp = targetNode->left;
+            while(temp->right != nullptr){
+                temp = temp-> right;
+            }
+            targetNode->data = temp->data;
+            targetNode->left = removeNode(targetNode->left, temp->data);
+        }
+        
+    }
+    return targetNode;
+    
+}
+
+Node* insert(Node*root, int val){
+    if(root == nullptr){
+        return new Node(val);
+    }
+    
+    if(val < root->data){
+        root->left = insert(root->left, val);
+    } else if(val > root->data){
+        root->right = insert(root->right, val);
+    }
+    
+    return root;
+}
+
+void print(Node *root){
+    if(root != nullptr){
+        cout << root->data << " " << endl;
+        print(root->left);
+        print(root->right);
+    }
+}
+
+int main() {
+    int numbers[] = {70, 60, 92, 50, 63, 82, 94, 40, 68, 72, 88, 98, 20, 45, 65, 75, 85, 96, 35, 80, 78};
+    int size = sizeof(numbers) / sizeof(numbers[0]);
+    Node *root = nullptr;
+    Node *head = nullptr;
+    
+    for(int i = 0; i < size; i++){
+        root = insert(root, numbers[i]);
+        if(i == 0) head = root;
+    };
+    
+    // insert value 30
+    int value = 30;
+    Node* newNode = new Node(value);
+    Node* current;
+    Node* trailcurrent;
+    int traveltime = 0;
+    
+    current = head;
+    while(current != nullptr){
+        trailcurrent = current;
+        if(current->data > value){
+            cout << "Visited " << current->data << endl;
+            current = current -> left;
+        } else {
+            cout << "Visited " << current->data << endl;
+            current = current -> right;
+        }
+    }
+    if(trailcurrent->data > value){
+        trailcurrent -> left = newNode;
+    } else {
+        trailcurrent -> right = newNode;
+    }
+    cout << "Inserted " << value << endl;
+    
+    //delete value 63
+     Node *head_temp = head;
+     head = removeNode(head, 63);
+     cout << "Deleted 63" << endl;
+     print(head_temp);
+    
+    return 0;
+}
